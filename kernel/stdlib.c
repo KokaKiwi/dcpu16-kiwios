@@ -37,12 +37,12 @@ void* malloc(size_t size)
 
 void* ralloc(size_t size)
 {
-    unsigned *p, i;
+    u16 *p;
 
     p = malloc(size);
-    for (i = 0; i < size; i++)
+    while(size--)
     {
-        *(p + i) = 0;
+        *p++ = 0;
     }
 
     return p;

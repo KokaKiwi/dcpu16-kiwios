@@ -73,9 +73,9 @@ unsigned hmd_get_flag()
     return flag;
 }
 
-void hmd_set_flag(unsigned flag)
+unsigned hmd_set_flag(unsigned flag)
 {
-    unsigned addr;
+    unsigned addr, code = MEDIA_ERROR_NO_MEDIA;
     
     detect_drive();
     
@@ -86,12 +86,16 @@ void hmd_set_flag(unsigned flag)
         asm("SET B, A");
         asm("SET A, 3");
         interrupt(addr);
+        
+        asm("SET [%code], A");
     }
+    
+    return code;
 }
 
-void hmd_set_interrupt_message(unsigned msg)
+unsigned hmd_set_interrupt_message(unsigned msg)
 {
-    unsigned addr;
+    unsigned addr, code = MEDIA_ERROR_NO_MEDIA;
     
     detect_drive();
     
@@ -102,12 +106,16 @@ void hmd_set_interrupt_message(unsigned msg)
         asm("SET B, A");
         asm("SET A, 5");
         interrupt(addr);
+        
+        asm("SET [%code], A");
     }
+    
+    return code;
 }
 
-void media_read_sector(void *dst, unsigned sector, unsigned size)
+unsigned media_read_sector(void *dst, unsigned sector, unsigned size)
 {
-    unsigned addr;
+    unsigned addr, code = MEDIA_ERROR_NO_MEDIA;
     
     detect_drive();
     
@@ -118,12 +126,16 @@ void media_read_sector(void *dst, unsigned sector, unsigned size)
         asm("SET X, A");
         asm("SET A, 0x0010");
         interrupt(addr);
+        
+        asm("SET [%code], A");
     }
+    
+    return code;
 }
 
-void media_write_sector(void *src, unsigned sector, unsigned size)
+unsigned media_write_sector(void *src, unsigned sector, unsigned size)
 {
-    unsigned addr;
+    unsigned addr, code = MEDIA_ERROR_NO_MEDIA;
     
     detect_drive();
     
@@ -134,5 +146,9 @@ void media_write_sector(void *src, unsigned sector, unsigned size)
         asm("SET X, A");
         asm("SET A, 0x0011");
         interrupt(addr);
+        
+        asm("SET [%code], A");
     }
+    
+    return code;
 }

@@ -14,5 +14,6 @@ struct device
 
 #define connectedhardwaredevices(ret) asm("HWN [%" #ret "]")
 #define interrupt(addr) asm("HWI [%" #addr "]")
+#define setinterrupthandler(handler) asm("IAS %" #handler);
 
 #endif

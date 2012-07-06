@@ -4,6 +4,7 @@
 #include "string.h"
 #include "hardware.h"
 #include "boot.h"
+#include "screen.h"
 
 char *vram = (char *) 0x8000;
 char mask = 0xf000;

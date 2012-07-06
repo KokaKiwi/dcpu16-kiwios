@@ -7,19 +7,23 @@
 #include <kernel.h>
 #include <time.h>
 #include <hmd.h>
+#include <hat.h>
+#include <string.h>
+#include <list.h>
 
 void kernel()
 {
-    Media media;
-    char *data;
-    unsigned sector, size;
+    List *list = create_list();
+    unsigned i;
     
-    media_params(&media);
+    for(i = 0; i < 10; i++)
+    {
+        append_list_element(list, NEW_LIST_ENTRY);
+    }
     
-    sector = 10;
-    size = 2;
+    insert_list_element(list, NEW_LIST_ENTRY, 5);
     
-    data = malloc(media.words_per_sector * size);
+    delete_list_element_at(list, 3);
     
-    media_read_sector(data, sector, size);
+    printf("Size: %d\n", list->size);
 }

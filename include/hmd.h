@@ -22,10 +22,10 @@
 #define QUALITY_AUTHENTIC           0x7FFF
 #define QUALITY_OTHER               0xFFFF
 
-#define DRIVE_ERROR_NONE            0x0000
-#define DRIVE_ERROR_NO_MEDIA        0x0001
-#define DRIVE_ERROR_INVALID_SECTOR  0x0002
-#define DRIVE_ERROR_PENDING         0x0003
+#define MEDIA_ERROR_NONE            0x0000
+#define MEDIA_ERROR_NO_MEDIA        0x0001
+#define MEDIA_ERROR_INVALID_SECTOR  0x0002
+#define MEDIA_ERROR_PENDING         0x0003
 
 typedef struct media Media;
 struct media
@@ -37,10 +37,10 @@ extern void detect_drive(void);
 extern unsigned media_present(void);
 extern void media_params(Media *);
 extern unsigned hmd_get_flag(void);
-extern void hmd_set_flag(unsigned);
-extern void hmd_set_interrupt_message(unsigned);
-extern void media_read_sector(void *, unsigned, unsigned);
-extern void media_write_sector(void *, unsigned, unsigned);
+extern unsigned hmd_set_flag(unsigned);
+extern unsigned hmd_set_interrupt_message(unsigned);
+extern unsigned media_read_sector(void *, unsigned, unsigned);
+extern unsigned media_write_sector(void *, unsigned, unsigned);
 
 extern Device *d_hmd;
 
