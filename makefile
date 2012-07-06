@@ -23,11 +23,11 @@ disk$E			: $(INCS) $(OBJS)
 	@echo 	"Creating boot disk..."
 	$(LD) -o $@ $(OBJS)
 
-$B%$O			: $B%$D
-	$(ASM) $(ASMFLAGS) -o $@ $^
-	cp $^ $(addprefix $S,$(notdir $^))
-	rm $^
+$B%$O			: $B%$D; $(ASM) $(ASMFLAGS) -o $@ $^
 
 $B%$D			: kernel/%.c
 	$(CC) $(CCFLAGS) -o $@ $^
-$Bboot$D		: boot/boot.c; $(CC) $(CCFLAGS) -Wf-header -o $@ $^
+	cp -pf $@ $(addprefix $S,$(notdir $@))
+$Bboot$D		: boot/boot.c
+	$(CC) $(CCFLAGS) -Wf-header -o $@ $^
+	cp -pf $@ $(addprefix $S,$(notdir $@))
