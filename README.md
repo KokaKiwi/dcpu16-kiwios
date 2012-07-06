@@ -13,4 +13,5 @@ Necessary packages
 Compile
 -------
 
+Create a 'target/source' folder inside project folder
 > make all
